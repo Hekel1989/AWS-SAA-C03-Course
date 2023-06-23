@@ -29,8 +29,8 @@ Each bucket can only have one policy, but it can have multiple statements.
 
 #### ACL's (Legacy)
 
-A way to apply a subresource to objects and buckets.
-These are legacy and AWS does not recomment their use.
+A way to apply a sub-resource to objects and buckets.
+These are legacy and AWS does not recommend their use.
 They are inflexible and allow simple permissions.
 
 #### Exam Power Up
@@ -41,7 +41,7 @@ Identity or Bucket Access:
   - Controlling different resources. Not every service supports resource
   policies.
   - IAM is the only place you can control permissions for everything.
-  - If you have access to all accounts accesing the information
+  - If you have access to all accounts accessing the information
 
 - Bucket
   - Managing permissions on a specific product.
