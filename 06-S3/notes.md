@@ -89,7 +89,7 @@ We could then change our DNS and move customers to a backup website on S3.
   - Data out is a per GB charge
 - Each operation has a cost per 1000 operations.
 
-If you are using static website hosting, you won't be transfering much data.
+If you are using static website hosting, you won't be transferring much data.
 
 If you end with a large customer base you may end up with many requests.
 
@@ -139,7 +139,7 @@ Single PUT upload up to 5GB
 #### Multipart Upload
 
 Data is broken up into smaller parts.
-The minimum daa size is 100 MB for multipart.
+The minimum data size is 100 MB for multipart.
 
 Upload can be split into maximum of 10,000 parts.
 
@@ -157,7 +157,7 @@ Uses the network of AWS edge locations.
 
 S3 bucket needs to be enabled for transfer acceleration.
 
-##### Bucketname cannot contain periods and must be DNS compatable in the naming
+##### Bucketname cannot contain periods and must be DNS compatible in the naming
 
 Benefits improve the larger the location and distance. The worse the start, the
 better the performance benefits.
@@ -174,7 +174,7 @@ a **secret** in this case a password.
 If the laptop is stolen or tampered with, the data is already encrypted and
 useless.
 
-This is used commonly within cloud enviroments. Even if someone could
+This is used commonly within cloud environments. Even if someone could
 find and access the base storage device, they can't do anything with it.
 
 - Only one entity involved
@@ -189,13 +189,13 @@ This is used when there are multiple parties or systems at play.
 #### Different Concepts
 
 **plaintext**, unencrypted data. Can be text, but can be anything including
-images or applications. This is something you can read or use immedietly.
+images or applications. This is something you can read or use immediately.
 
 Algorithm takes **plaintext** and a **key** to generate **ciphertext**.
 
 #### Symmetric Encryption
 
-Difficult becuase the key needs to be transfered securely.
+Difficult because the key needs to be transferred securely.
 
 If the data is time sensitive, the key needs to be arranged beforehand.
 
@@ -241,7 +241,7 @@ Keys never leave KMS.
 Keys use **FIPS 140-2 (L2)** security standard. Some of KMS's features
 are compliant with Level 3, but all are Level 2.
 
-KMS manages **CMK - Cusstomer Master Key**. It is logical and contains
+KMS manages **CMK - Customer Master Key**. It is logical and contains
 
 - ID
 - Date
@@ -264,7 +264,7 @@ KMS does not store the DEKs. Once it hands the keys over, it does not care.
 
 When the DEK is generated, KMS provides two version.
 
-- Plaintext Version - This can be used immedietly
+- Plaintext Version - This can be used immediately
 - Ciphertext Version - Encrypted version of the DEK. This is encrypted
 by the customer master key that generated it.
 
@@ -307,6 +307,7 @@ must be trusted by the key.
 
 #### Linux/macOS commands
 
+```awscli
 aws kms encrypt \
     --key-id alias/catrobot \
     --plaintext fileb://battleplans.txt \
@@ -320,6 +321,7 @@ aws kms decrypt \
     --output text \
     --profile iamadmin-general \
     --query Plaintext | base64 --decode > decryptedplans.txt
+```
 
 ### Object Encryption
 
@@ -368,21 +370,21 @@ object. It uses that key to encrypt that plaintext object.
 - The encrypted key is stored next to the encrypted object.
 - Very little control how the keys are used.
 - Most of situations, this is the default type of encryption
-  - Strong algorythm
+  - Strong algorithm
   - Data encrypted at rest
   - Little admin overhead.
 
 - THREE PROBLEMS:
-  - Regulatory enviromment where the keys and access needs to be controlled.
+  - Regulatory environment where the keys and access needs to be controlled.
   - No way to control key material rotation.
-  - No role seperation.
+  - No role separation.
     - A full S3 admin can rotate keys as well as encrypt or decrypt data.
 
 ##### SSE-KMS (Server-side encryption w/ customer master keys stored in AWS KMS)
 
 - Similar as above, except for the master key.
 - Customer Master Key is managed by KMS.
-- Everytime an object is uploaded, S3 uses a dedicated key to encrypt
+- Every time an object is uploaded, S3 uses a dedicated key to encrypt
 that specific object.
 - The key is a data encryption key that KMS generates using the CMK.
 - S3 is provided with a plaintext version of the data encryption key as well as
@@ -403,7 +405,7 @@ In regulated industries, this is reason enough to use SSE-KMS
 
 You can also add logging and see any calls against this key from cloudtrails.
 
-The best benefit is the role seperation. To decrypt any object, you need
+The best benefit is the role separation. To decrypt any object, you need
 access to the CMK that was used to generate the unique key that was used to
 generate them.
 
@@ -423,7 +425,7 @@ it can be changed as long as the conditions are met
 The default AWS storage class that's used in S3. This is pretty good for most
 cases and should be user default as well.
 
-When you store an object in S3, it is stored in a bucket within a specific region. S3 is a **region resillent** service which means it can tolerate the
+When you store an object in S3, it is stored in a bucket within a specific region. S3 is a **region resilient** service which means it can tolerate the
 failure of an availability zone.
 
 This is done by replicating objects to at least 3+ AZs when they are uploaded.
@@ -565,7 +567,7 @@ after 90 days to keep costs down.
 Architecture for both is similar, only difference is if both buckets are
 in the same account or different accounts.
 
-An IAM Role is configured during the replciation configuration.
+An IAM Role is configured during the replication configuration.
 
 Two types of replication
 
@@ -606,7 +608,7 @@ Both buckets must have versioning enabled.
 It is a one way replication process only.
 
 Replication by default can handle objects that are unencrypted or SSE-S3
-With extra configuratiion it can handle SSE-KMS, but KMS requires more
+With extra configuration it can handle SSE-KMS, but KMS requires more
 configuration to work.
 
 It cannot use objects with SSE-C because AWS does not have the keys
@@ -638,7 +640,7 @@ A S3 bucket without any public access configured.
 In order to access the bucket, the IAM user must authenticate and send a
 request to access those objects.
 
-iamadmin can make a reqeust to S3 to **generate presigned URL**
+iamadmin can make a request to S3 to **generate pre-signed URL**
 
 The user must provide:
 
@@ -651,14 +653,14 @@ The user must provide:
 S3 will respond with a custom URL with all the details encoded including
 the expiration of the URL.
 
-#### Exam Powerup
+#### Exam Power up
 
 - You can create a URL for an object you have no access to
   - The object will not allow access because your user does not have it.
 - When using the URL the permission match the identity that generated it
 at the moment the item is being accessed.
 - If you get an access deny it means the ID never had access, or lost it.
-- Don't generate with a role. The role will likely expire before the url does.
+- Don't generate with a role. The role will likely expire before the URL does.
 
 ### S3 Select and Glacier Select
 
