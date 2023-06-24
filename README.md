@@ -1,6 +1,6 @@
 # 1. SAA-C02 Notes
 
-> These are my personal notes from Adrian Cantrill's (SAA-C02) course.Learning Aids from [aws-sa-associate-saac02](https://github.com/acantril/aws-sa-associate-saac02). There may be errors, so please purchase his course to get the original content and show support <https://learn.cantrill.io.>
+> These are my personal notes from Adrian Cantrill's (SAA-C03) course.Learning Aids from [aws-sa-associate-saac03](https://github.com/acantril/aws-sa-associate-saac02). There may be errors, so please purchase his course to get the original content and show support <https://learn.cantrill.io.>
 
 **Table of Contents**
 
@@ -54,7 +54,7 @@ are charged for is the **unit of consumption**
 
 1. On-Premises: The individual manages all components from data to facilities.
 Provides the most flexibility, but also most IT intensive.
-2. Data Center Hosting: Place equipment in a building managed by a vendor.
+2. Data Centre Hosting: Place equipment in a building managed by a vendor.
 You pay for the facilities only.
 3. Infrastructure as a Service (IaaS): Vendor manages facilities and everything
 else related to servers up to the OS. You pay per second or minute for the OS
